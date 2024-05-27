@@ -1,19 +1,26 @@
 package org.example;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import org.example.client.ClientService;
+import org.flywaydb.core.Flyway;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        ClientService clientService = new ClientService(Database.getInstance().getConnection());
+        initDb();
+        System.out.println("clientService.create(Jon) = " + clientService.create("Jon"));
+        System.out.println("clientService.getById(1) = " + clientService.getById(1));
+        clientService.setName(2, "Jon");
+        clientService.deleteById(3);
+        System.out.println("clientService.listAll() = " + clientService.listAll());
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+    }
+    private static void initDb(){
+        Flyway flyway = Flyway
+                .configure()
+                .dataSource("jdbc:h2:./test", null, null)
+                .load();
+
+        flyway.migrate();
     }
 }
