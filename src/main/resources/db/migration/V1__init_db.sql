@@ -11,7 +11,7 @@ CREATE TABLE client (
 );
 CREATE TABLE project(
     id IDENTITY PRIMARY KEY,
-    client_id BIGINT REFERENCES client(id),
+    client_id BIGINT,
     start_date DATE,
     finish_date DATE
 );

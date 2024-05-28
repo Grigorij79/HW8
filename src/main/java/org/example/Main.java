@@ -8,7 +8,7 @@ public class Main {
 
         ClientService clientService = new ClientService(Database.getInstance().getConnection());
         initDb();
-        System.out.println("clientService.create(Jon) = " + clientService.create("Jon"));
+       System.out.println("clientService.create(Jon) = " + clientService.create("Jon"));
         System.out.println("clientService.getById(1) = " + clientService.getById(1));
         clientService.setName(2, "Jon");
         clientService.deleteById(3);

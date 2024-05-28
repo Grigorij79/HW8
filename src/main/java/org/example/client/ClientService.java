@@ -21,9 +21,10 @@ public class ClientService {
             throw new IllegalArgumentException("Name's length must be greater than 2 and less than 1000");
         }
 
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO client (name) VALUES ?")){
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO client (id, name) VALUES (?, ?)")){
 
-            statement.setString(1, name);
+            statement.setLong(1, 11L);
+            statement.setString(2, name);
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -98,10 +99,10 @@ public class ClientService {
         }
     }
 
-
     public void deleteById(long id) {
         try (PreparedStatement statement = connection.prepareStatement("DELETE FROM client WHERE id = ?")){
             statement.setLong(1, id);
+
             statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
